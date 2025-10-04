@@ -1,0 +1,1 @@
+{"resources":[{"@type":"Symfony\\Component\\Config\\Resource\\FileResource","resource":"C:\\Users\\Jervine Alvarico\\staygrid\\staygrid\\assets\\bootstrap.js"},{"@type":"Symfony\\Component\\Config\\Resource\\FileExistenceResource","exists":true,"resource":"C:\\Users\\Jervine Alvarico\\staygrid\\staygrid\\vendor\\symfony\\stimulus-bundle\\assets\\dist\\loader.js"}]}
