@@ -1,3 +1,86 @@
+:root {
+  --gold: #FFD700;
+  --black: #000000;
+  --gray: #E0E0E0;
+}
+
 body {
-    background-color: skyblue;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--gray);
+  color: var(--black);
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--gray);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.logo .dot {
+  color: var(--gold);
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--black);
+  margin: 0 1rem;
+  font-weight: 500;
+}
+
+nav a.active {
+  background: var(--black);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+}
+
+.cta-btn {
+  background-color: var(--gold);
+  color: var(--black);
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cta-btn:hover {
+  background-color: var(--black);
+  color: var(--gold);
+}
+
+/* Hero Section */
+.hero {
+  padding: 5rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.hero-text h1 {
+  font-size: 5rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.hero-text p {
+  max-width: 400px;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.hero-btn {
+  margin-top: 1.5rem;
 }

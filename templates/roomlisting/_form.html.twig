@@ -1,0 +1,125 @@
+{# templates/roomlisting/_form.html.twig #}
+
+{{ form_start(form, {'attr': {'class': 'space-y-8 divide-y divide-gray-200'}}) }}
+
+    <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+        <div>
+            <h3 class="text-xl leading-6 font-medium text-gray-900">Room Details</h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                Provide the essential information for your new room listing.
+            </p>
+
+            <div class="mt-6 space-y-6 sm:space-y-5">
+                
+                {# NEW: Room Category #}
+                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                    <label for="{{ form.category.vars.id }}" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        {{ form.category.vars.label }}
+                    </label>
+                    <div class="mt-1 sm:col-span-2 sm:mt-0">
+                        {{ form_widget(form.category, {'attr': {
+                            'class': 'block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm'
+                        }}) }}
+                        {{ form_errors(form.category) }}
+                    </div>
+                </div>
+
+                {# Room Number/Code #}
+                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                    <label for="{{ form.number.vars.id }}" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        {{ form.number.vars.label }}
+                    </label>
+                    <div class="mt-1 sm:col-span-2 sm:mt-0">
+                        {{ form_widget(form.number, {'attr': {
+                            'class': 'block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm'
+                        }}) }}
+                        {{ form_errors(form.number) }}
+                    </div>
+                </div>
+
+                {# Price Per Night #}
+                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                    <label for="{{ form.pricePerNight.vars.id }}" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        {{ form.pricePerNight.vars.label }}
+                    </label>
+                    <div class="mt-1 sm:col-span-2 sm:mt-0">
+                        <div class="relative mt-1 rounded-md shadow-sm max-w-lg">
+                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                <span class="text-gray-500 sm:text-sm">$</span>
+                            </div>
+                            {{ form_widget(form.pricePerNight, {'attr': {
+                                'class': 'block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm',
+                                'placeholder': '0.00'
+                            }}) }}
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                                <span class="text-gray-500 sm:text-sm" id="price-currency">USD</span>
+                            </div>
+                        </div>
+                        {{ form_errors(form.pricePerNight) }}
+                    </div>
+                </div>
+
+                {# Max Capacity (Guests) #}
+                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                    <label for="{{ form.capacity.vars.id }}" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        {{ form.capacity.vars.label }}
+                    </label>
+                    <div class="mt-1 sm:col-span-2 sm:mt-0">
+                        {{ form_widget(form.capacity, {'attr': {
+                            'class': 'block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm',
+                            'min': 1
+                        }}) }}
+                        {{ form_errors(form.capacity) }}
+                    </div>
+                </div>
+
+                {# Description #}
+                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                    <label for="{{ form.description.vars.id }}" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        {{ form.description.vars.label }}
+                    </label>
+                    <div class="mt-1 sm:col-span-2 sm:mt-0">
+                        {{ form_widget(form.description, {'attr': {
+                            'rows': 4,
+                            'class': 'block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm',
+                            'placeholder': 'A cozy room with a view...'
+                        }}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                </div>
+
+                {# Room is currently available? #}
+                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                    <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                        Availability
+                    </label>
+                    <div class="mt-1 sm:col-span-2 sm:mt-0">
+                        <div class="flex items-center">
+                            {{ form_widget(form.isAvailable, {'attr': {
+                                'class': 'h-4 w-4 rounded border-gray-300 text-yellow-600 focus:ring-yellow-500'
+                            }}) }}
+                            <label for="{{ form.isAvailable.vars.id }}" class="ml-2 block text-sm text-gray-900">
+                                {{ form.isAvailable.vars.label }}
+                            </label>
+                        </div>
+                        {{ form_errors(form.isAvailable) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div class="flex justify-end">
+            <a href="{{ path('app_roomlisting_index') }}" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
+                Cancel
+            </a>
+            <button type="submit" 
+                    class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-yellow-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
+                {{ button_label|default('Create Room') }}
+            </button>
+        </div>
+    </div>
+
+{{ form_end(form) }}

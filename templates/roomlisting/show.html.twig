@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room {{ room_listing.number }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 pt-24">
+    <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+        <div class="px-4 py-5 sm:px-6">
+            <h3 class="text-2xl leading-6 font-medium text-gray-900">
+                Room Listing Details
+            </h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                Detailed information for Room Number: **{{ room_listing.number }}**
+            </p>
+        </div>
+        <div class="border-t border-gray-200">
+            <dl>
+                {# ID #}
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">ID</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ room_listing.id }}</dd>
+                </div>
+                
+                {# NEW: Room Category #}
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Category</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ room_listing.category|default('N/A') }}</dd>
+                </div>
+                
+                {# Room Number/Code #}
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Room Number/Code</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ room_listing.number }}</dd>
+                </div>
+                
+                {# Price Per Night #}
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Price Per Night</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        ${{ room_listing.pricePerNight|number_format(2, '.', ',') }}
+                    </dd>
+                </div>
+                
+                {# Max Capacity #}
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Max Capacity</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ room_listing.capacity }} Guests</dd>
+                </div>
+                
+                {# Availability Status #}
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Availability Status</dt>
+                    <dd class="mt-1 text-sm sm:mt-0 sm:col-span-2">
+                        {% if room_listing.isAvailable %}
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Available</span>
+                        {% else %}
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Not Available</span>
+                        {% endif %}
+                    </dd>
+                </div>
+
+                {# Description #}
+                <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">Description</dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 whitespace-pre-wrap">{{ room_listing.description|default('No description provided.') }}</dd>
+                </div>
+                
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-6 flex space-x-4">
+        <a href="{{ path('app_roomlisting_edit', {'id': room_listing.id}) }}" 
+           class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition">
+            Edit
+        </a>
+        
+        {{ include('roomlisting/_delete_form.html.twig') }}
+
+        <a href="{{ path('app_roomlisting_index') }}" 
+           class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition">
+            Back to list
+        </a>
+    </div>
+</div>
+{% endblock %}

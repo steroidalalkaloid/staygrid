@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{{ page_title|default("Contact StayGrid") }}{% endblock %}</title>
+
+
+    <link rel="icon" type="image/png" href="{{ asset('icons/staygrid16x16.png') }}"/>
+
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f7f9fc;
+    }
+    .nav-link { color: #4b5563; }
+    .nav-link:hover { color: #FFD700; }
+    .btn-primary { background-color: #FFD700; border-color: #FFD700; }
+    .btn-primary:hover { background-color: #e6c200; } 
+ 
+    .feature-icon-bg { background-color: #FFF4B0; color: #FFD700; }
+
+    {% block styles %}{% endblock %} 
+
+</style>
+
+</head>
+<body>
+
+
+
+<nav class="bg-white shadow-sm sticky top-0 z-10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+
+<a href="/" class="flex items-center space-x-2 text-xl font-bold text-gray-800">
+StayGrid
+</a>
+
+       
+        <div class="hidden md:flex space-x-6 items-center">
+            {% set nav_items = [
+                { name: 'Home', url: '/' },
+                { name: 'Rooms', url: '/rooms' },
+                { name: 'About', url: '/about' },
+                { name: 'Contact', url: '/contact' }
+            ] %}
+            {% for item in nav_items %}
+                <a href="{{ item.url }}" class="nav-link text-sm font-medium flex items-center">
+                    {{ item.name }}
+                </a>
+            {% endfor %}
+        </div>
+
+      
+        <a href="{{ path('app_login', {'redirect': 'book'}) }}" 
+       class="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-200">
+        Book Now
+    </a>
+    </div>
+</div>
+
+</nav>
+
+
+<section class="relative bg-white overflow-hidden">
+  <div class="grid grid-cols-1 md:grid-cols-2 items-center">
+   
+    <div class="bg-black text-white p-12 md:p-20 flex flex-col justify-center">
+      <h1 class="text-4xl font-extrabold mb-4">Contact</h1>
+      <p class="text-lg leading-relaxed">
+        Our StayGrid support team is always ready to help you with any questions or bookings. <br>
+        Reach out — we’d love to hear from you!
+      </p>
+    </div>
+
+    <div class="relative h-64 md:h-full">
+      <img src="{{ asset('images/banner.png') }}"
+           alt="Contact StayGrid"
+           class="object-cover w-full h-full">
+    </div>
+  </div>
+</section>
+
+<section class="py-20 bg-white">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <div class="text-center mb-10">
+      <h2 class="text-4xl font-extrabold text-gray-900 mb-4"> </h2>
+      <p class="text-gray-600 text-lg"> </p>
+    </div>
+
+    <form action="#" method="POST" class="bg-gray-50 rounded-lg shadow-lg p-8 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label for="email" class="block text-gray-700 mb-2 font-medium">Email</label>
+          <input type="email" id="email" name="email" required
+                 placeholder="Enter a valid email address"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
+        </div>
+        <div>
+          <label for="name" class="block text-gray-700 mb-2 font-medium">Name</label>
+          <input type="text" id="name" name="name" required
+                 placeholder="Enter your name"
+                 class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400">
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit"
+                class="w-full md:w-1/3 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold rounded-md shadow-md transition duration-150 ease-in-out">
+          SUBMIT
+        </button>
+      </div>
+    </form>
+
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+      
+      <div class="group cursor-pointer">
+        <div class="flex justify-center mb-4">
+          <div class="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-100 text-yellow-500 shadow-lg
+                      transform transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:rotate-6 group-hover:bg-yellow-400 group-hover:text-white">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16 8a6 6 0 11-8 8 6 6 0 018-8zm0 0V4m0 4h4" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">SOCIAL MEDIA</h3>
+        <div class="opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-2 transition-all duration-500 ease-in-out">
+          <p class="text-gray-600">
+              Instagram: <span class="font-semibold">StayGrid</span><br>
+              Facebook: <span class="font-semibold">StayGrid Homes</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="group cursor-pointer">
+        <div class="flex justify-center mb-4">
+          <div class="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-100 text-yellow-500 shadow-lg
+                      transform transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:rotate-6 group-hover:bg-yellow-400 group-hover:text-white">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3 8l9 6 9-6M21 8v10a2 2 0 01-2 2H5a2 2 0 01-2-2V8l9 6 9-6z" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">EMAIL</h3>
+        <div class="opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-2 transition-all duration-500 ease-in-out">
+          <p class="text-gray-600">staygridofficial@corps.com</p>
+        </div>
+      </div>
+
+      <div class="group cursor-pointer">
+        <div class="flex justify-center mb-4">
+          <div class="w-16 h-16 flex items-center justify-center rounded-full bg-yellow-100 text-yellow-500 shadow-lg
+                      transform transition-all duration-500 ease-in-out group-hover:scale-110 group-hover:rotate-6 group-hover:bg-yellow-400 group-hover:text-white">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3z" />
+              <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 22s8-6.716 8-14a8 8 0 10-16 0c0 7.284 8 14 8 14z" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">OUR OFFICE LOCATION</h3>
+        <div class="opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-2 transition-all duration-500 ease-in-out">
+          <p class="text-gray-600">
+            Negros Oriental, 6200, Dumaguete City<br>
+            Cervantes Street, Staygrid Building
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+
+</body>
+</html>

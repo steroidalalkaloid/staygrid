@@ -1,0 +1,45 @@
+/* Custom CSS based on StayGrid Brand Guide */
+
+:root {
+    /* Primary Colors */
+    --staygrid-primary-yellow: #FFD700;
+    --staygrid-primary-black: #000000;
+    --staygrid-light-gray: #E0E0E0;
+}
+
+body {
+    /* Set the primary font to Helvetica/sans-serif */
+    font-family: Helvetica, Arial, sans-serif; 
+    background-color: var(--staygrid-light-gray);
+    /* Apply the grid pattern subtly to the background, if you have the image/SVG */
+    /* background-image: url('/images/grid-pattern.svg'); */
+}
+
+/* Override Bootstrap Primary Color for the Navbar and Buttons */
+.bg-primary {
+    background-color: var(--staygrid-primary-black) !important;
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+    /* Yellow text on the black navbar */
+    color: var(--staygrid-light-gray) !important;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: var(--staygrid-primary-yellow);
+    border-color: var(--staygrid-primary-yellow);
+    color: var(--staygrid-primary-black); /* Black text for visibility on yellow */
+    font-weight: bold;
+}
+.btn-primary:hover {
+    background-color: #D4AF37; /* Slightly darker yellow on hover */
+    border-color: #D4AF37;
+    color: var(--staygrid-primary-black);
+}
+
+/* Style the main content cards for the brutalist aesthetic */
+.card-staygrid {
+    border: 3px solid var(--staygrid-primary-black);
+    box-shadow: 5px 5px 0px var(--staygrid-primary-black);
+}
