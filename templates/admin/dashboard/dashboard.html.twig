@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block body %}
+<div class="p-8 bg-slate-900 min-h-screen text-white">
+    <h1 class="text-3xl font-bold mb-6">{{ page_title }}</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+        <!-- Total Rooms -->
+        <div class="bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-700 hover:border-blue-500 transition">
+            <h2 class="text-lg font-semibold text-gray-300">Total Rooms</h2>
+            <p class="text-4xl font-bold mt-2 text-blue-400">{{ total_rooms }}</p>
+        </div>
+
+        <!-- Available Rooms -->
+        <div class="bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-700 hover:border-green-500 transition">
+            <h2 class="text-lg font-semibold text-gray-300">Available Rooms</h2>
+            <p class="text-4xl font-bold mt-2 text-green-400">{{ available_rooms }}</p>
+        </div>
+
+        <!-- Occupied Rooms -->
+        <div class="bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-700 hover:border-red-500 transition">
+            <h2 class="text-lg font-semibold text-gray-300">Occupied Rooms</h2>
+            <p class="text-4xl font-bold mt-2 text-red-400">{{ occupied_rooms }}</p>
+        </div>
+    </div>
+
+    <!-- Inventory Summary -->
+    <div class="bg-slate-800 p-6 rounded-2xl shadow-lg border border-slate-700 mb-8">
+        <h2 class="text-lg font-semibold text-gray-300 mb-4">Inventory Summary</h2>
+        <ul class="mt-4 space-y-2 text-gray-300">
+            <li>🏠 Total Rooms: <span class="text-white font-semibold">{{ total_rooms }}</span></li>
+            <li>✅ Available: <span class="text-green-400 font-semibold">{{ available_rooms }}</span></li>
+            <li>❌ Occupied: <span class="text-red-400 font-semibold">{{ occupied_rooms }}</span></li>
+        </ul>
+    </div>
+
+    <!-- Room Inventory Table -->
+    <h3 class="mt-8 mb-4 text-xl font-semibold">Room Inventory</h3>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-slate-800 text-white rounded-xl overflow-hidden">
+            <thead class="bg-slate-700">
+                <tr>
+                    <th class="px-6 py-3 text-left text-sm font-medium">ID</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium">Room Number</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium">Status</th>
+                    <th class="px-6 py-3 text-left text-sm font-medium">Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for room in rooms %}
+                    <tr class="border-b border-slate-600 hover:bg-slate-700">
+                        <td class="px-6 py-3">{{ room.id }}</td>
+                        <td class="px-6 py-3">{{ room.number }}</td>
+                        <td class="px-6 py-3">
+                            {% if room.isAvailable() %}
+                                <span class="bg-green-500 text-white px-2 py-1 rounded-full text-xs">Available</span>
+                            {% else %}
+                                <span class="bg-red-500 text-white px-2 py-1 rounded-full text-xs">Occupied</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-3">{{ room.category }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="px-6 py-3 text-center">No rooms found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

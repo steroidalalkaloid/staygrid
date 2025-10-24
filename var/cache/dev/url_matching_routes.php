@@ -16,6 +16,12 @@ return [
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/about' => [[['_route' => 'app_about', '_controller' => 'App\\Controller\\AboutController::index'], null, null, null, false, false, null]],
+        '/admin' => [[['_route' => 'app_admin_home', '_controller' => 'App\\Controller\\Admin\\AdminHomeController::home'], null, null, null, false, false, null]],
+        '/admin/roomlisting' => [[['_route' => 'app_admin_roomlisting_index', '_controller' => 'App\\Controller\\Admin\\RoomListingController::index'], null, ['GET' => 0], null, true, false, null]],
+        '/admin/roomlisting/new' => [[['_route' => 'app_admin_roomlisting_new', '_controller' => 'App\\Controller\\Admin\\RoomListingController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/admin/login' => [[['_route' => 'app_admin_login', '_controller' => 'App\\Controller\\Admin\\SecurityAdminController::login'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/admin/logout' => [[['_route' => 'app_admin_logout', '_controller' => 'App\\Controller\\Admin\\SecurityAdminController::logout'], null, null, null, false, false, null]],
+        '/admin/users' => [[['_route' => 'app_admin_users_index', '_controller' => 'App\\Controller\\Admin\\UserController::index'], null, null, null, true, false, null]],
         '/book' => [[['_route' => 'app_booking', '_controller' => 'App\\Controller\\BookController::book'], null, null, null, false, false, null]],
         '/book/now' => [[['_route' => 'app_book_now', '_controller' => 'App\\Controller\\BookNowController::index'], null, null, null, false, false, null]],
         '/booking/login' => [[['_route' => 'app_booking_login', '_controller' => 'App\\Controller\\BookingLoginController::index'], null, null, null, false, false, null]],
@@ -27,14 +33,13 @@ return [
         '/new' => [[['_route' => 'app_new', '_controller' => 'App\\Controller\\NewController::index'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
         '/verify/email' => [[['_route' => 'app_verify_email', '_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], null, null, null, false, false, null]],
-        '/roomlisting' => [[['_route' => 'app_roomlisting_index', '_controller' => 'App\\Controller\\RoomListingController::index'], null, ['GET' => 0], null, true, false, null]],
-        '/roomlisting/new' => [[['_route' => 'app_roomlisting_new', '_controller' => 'App\\Controller\\RoomListingController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/rooms' => [[['_route' => 'app_rooms', '_controller' => 'App\\Controller\\RoomsController::rooms'], null, null, null, false, false, null]],
         '/rooms/studio-deluxe' => [[['_route' => 'app_room_studio_deluxe', '_controller' => 'App\\Controller\\RoomsController::studioDeluxe'], null, null, null, false, false, null]],
         '/rooms/executive-suite' => [[['_route' => 'app_room_executive_suite', '_controller' => 'App\\Controller\\RoomsController::executiveSuite'], null, null, null, false, false, null]],
         '/rooms/family-apartment' => [[['_route' => 'app_room_family_apartment', '_controller' => 'App\\Controller\\RoomsController::familyApartment'], null, null, null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
+        '/admin/profile/edit' => [[['_route' => 'app_admin_profile_edit', '_controller' => 'App\\Controller\\Admin\\AdminProfileController::edit'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -56,10 +61,10 @@ return [
                         .')'
                     .')'
                 .')'
-                .'|/roomlisting/([^/]++)(?'
-                    .'|(*:226)'
-                    .'|/edit(*:239)'
-                    .'|(*:247)'
+                .'|/admin/roomlisting/([^/]++)(?'
+                    .'|(*:232)'
+                    .'|/edit(*:245)'
+                    .'|(*:253)'
                 .')'
             .')/?$}sDu',
     ],
@@ -72,10 +77,10 @@ return [
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        226 => [[['_route' => 'app_roomlisting_show', '_controller' => 'App\\Controller\\RoomListingController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        239 => [[['_route' => 'app_roomlisting_edit', '_controller' => 'App\\Controller\\RoomListingController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        247 => [
-            [['_route' => 'app_roomlisting_delete', '_controller' => 'App\\Controller\\RoomListingController::delete'], ['id'], ['POST' => 0], null, false, true, null],
+        232 => [[['_route' => 'app_admin_roomlisting_show', '_controller' => 'App\\Controller\\Admin\\RoomListingController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        245 => [[['_route' => 'app_admin_roomlisting_edit', '_controller' => 'App\\Controller\\Admin\\RoomListingController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        253 => [
+            [['_route' => 'app_admin_roomlisting_delete', '_controller' => 'App\\Controller\\Admin\\RoomListingController::delete'], ['id'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

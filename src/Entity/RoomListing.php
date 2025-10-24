@@ -19,7 +19,6 @@ class RoomListing
     #[ORM\Column(length: 255)]
     private ?string $number = null;
 
-    // New Category field
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $category = null;
 
@@ -29,13 +28,14 @@ class RoomListing
     #[ORM\Column(nullable: true)]
     private ?int $capacity = null;
 
-    // Maps to the 'price' column in the database
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, name: 'price')] 
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, name: 'price')]
     private ?string $pricePerNight = null;
 
     #[ORM\Column]
     private ?bool $isAvailable = false;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     // --- Getters and Setters ---
 
@@ -88,14 +88,14 @@ class RoomListing
         return $this;
     }
 
-    public function getPricePerNight(): ?string
+    public function getPricePerNight(): ?float
     {
-        return $this->pricePerNight;
+        return $this->pricePerNight !== null ? (float)$this->pricePerNight : null;
     }
 
-    public function setPricePerNight(?string $pricePerNight): static
+    public function setPricePerNight(?float $price): static
     {
-        $this->pricePerNight = $pricePerNight;
+        $this->pricePerNight = $price !== null ? number_format($price, 2, '.', '') : null;
         return $this;
     }
 
@@ -107,6 +107,17 @@ class RoomListing
     public function setIsAvailable(bool $isAvailable): static
     {
         $this->isAvailable = $isAvailable;
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
         return $this;
     }
 }

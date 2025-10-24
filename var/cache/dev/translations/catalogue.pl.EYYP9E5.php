@@ -420,6 +420,11 @@ $catalogueEn = new MessageCatalogue('en', array (
     'The link to verify your email is invalid. Please request a new link.' => 'The link to verify your email is invalid. Please request a new link.',
     'The link to verify your email appears to be for a different account or email. Please request a new link.' => 'The link to verify your email appears to be for a different account or email. Please request a new link.',
   ),
+  'messages' => 
+  array (
+    'admin_profile.plainPassword.first.placeholder' => 'Enter new password (leave blank to keep current)',
+    'admin_profile.plainPassword.second.placeholder' => 'Confirm new password',
+  ),
 ));
 $catalogue->addFallbackCatalogue($catalogueEn);
 

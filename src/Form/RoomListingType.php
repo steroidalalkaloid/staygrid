@@ -11,7 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType; // <-- NEW
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType; // For image upload
+use Symfony\Component\Validator\Constraints\File;
 
 class RoomListingType extends AbstractType
 {
@@ -24,7 +26,7 @@ class RoomListingType extends AbstractType
                     'Studio Deluxe' => 'Studio Deluxe',
                     'Executive Suite' => 'Executive Suite',
                     'Family Apartment' => 'Family Apartment',
-                    'Other' => 'Other', 
+                    'Other' => 'Other',
                 ],
                 'placeholder' => '--- Select a Category ---',
                 'required' => false,
@@ -48,6 +50,22 @@ class RoomListingType extends AbstractType
             ->add('isAvailable', CheckboxType::class, [
                 'label' => 'Room is currently available?',
                 'required' => false,
+            ])
+            ->add('image', FileType::class, [
+                'label' => 'Room Image',
+                'mapped' => false, // This field is not directly mapped to the entity
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG, WebP)',
+                    ])
+                ],
             ]);
     }
 

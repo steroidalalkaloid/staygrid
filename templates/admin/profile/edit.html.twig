@@ -1,0 +1,107 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Admin Profile Settings{% endblock %}
+{% block header_title %}Admin Profile Settings{% endblock %}
+
+{% set primary_accent = '#facc15' %}
+{% set secondary_dark = '#111827' %}
+
+{% block body %}
+
+    {# Form Start with CSRF protection #}
+    {{ form_start(profileForm, {
+        'attr': {'class': 'space-y-8', 'id': 'admin-profile-form'}
+    }) }}
+
+    {# Sticky Header/Save Button Area #}
+    <div class="sticky top-16 z-10 bg-gray-50 pt-4 pb-4 border-b border-gray-200">
+        <div class="flex justify-between items-center max-w-4xl mx-auto px-4 sm:px-0">
+            <h1 class="text-2xl font-bold text-secondary-dark">Profile Settings</h1>
+            <button type="submit" 
+                    class="inline-flex justify-center rounded-lg border border-transparent bg-primary-accent py-2 px-6 text-sm font-bold text-secondary-dark shadow-lg hover:bg-primary-accent/90 focus:outline-none focus:ring-2 focus:ring-primary-accent focus:ring-offset-2 transition">
+                Save Changes
+            </button>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto py-4">
+
+        {# ------------------------------------ #}
+        {# PANEL 1: ACCOUNT DETAILS #}
+        {# ------------------------------------ #}
+        <div class="bg-white shadow-xl overflow-hidden rounded-xl">
+            <div class="px-6 py-5 border-b border-gray-100">
+                <h2 class="text-xl font-bold text-secondary-dark">Account Information</h2>
+                <p class="text-sm text-gray-500 mt-1">Manage your admin login email.</p>
+            </div>
+            
+            <div class="p-6 space-y-6">
+                {# Email Field #}
+                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                    <label for="{{ profileForm.email.vars.id }}" class="block text-sm font-medium text-secondary-dark sm:mt-2">
+                        {{ profileForm.email.vars.label }}
+                    </label>
+                    <div class="mt-1 sm:col-span-2 sm:mt-0 max-w-md">
+                        {{ form_widget(profileForm.email, {
+                            'attr': {
+                                'class': 'block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-accent focus:ring-primary-accent sm:text-sm'
+                            }
+                        }) }}
+                        {{ form_errors(profileForm.email) }}
+                        <p class="mt-2 text-xs text-gray-500">This is the email address you use to sign in.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-10"></div>
+
+        {# ------------------------------------ #}
+        {# PANEL 2: PASSWORD CHANGE #}
+        {# ------------------------------------ #}
+        <div class="bg-white shadow-xl overflow-hidden rounded-xl">
+            <div class="px-6 py-5 border-b border-gray-100">
+                <h2 class="text-xl font-bold text-secondary-dark">Password Management</h2>
+                <p class="text-sm text-gray-500 mt-1">Use a minimum of 8 characters with a mix of letters and numbers.</p>
+            </div>
+
+            <div class="p-6 space-y-6">
+                {# Password fields container #}
+                <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start">
+                    <label class="block text-sm font-medium text-secondary-dark sm:mt-2">
+                        New Password
+                    </label>
+                    <div class="mt-1 sm:col-span-2 sm:mt-0 max-w-md space-y-4">
+
+                        {# First password input with translation placeholder #}
+                        <div>
+                            {{ form_widget(profileForm.plainPassword.first, {
+                                'attr': {
+                                    'class': 'block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-accent focus:ring-primary-accent sm:text-sm',
+                                    'placeholder': 'admin_profile.plainPassword.first.placeholder'|trans
+                                }
+                            }) }}
+                            {{ form_errors(profileForm.plainPassword.first) }}
+                        </div>
+
+                        {# Second password input with translation placeholder #}
+                        <div>
+                            {{ form_widget(profileForm.plainPassword.second, {
+                                'attr': {
+                                    'class': 'block w-full rounded-lg border-gray-300 shadow-sm focus:border-primary-accent focus:ring-primary-accent sm:text-sm',
+                                    'placeholder': 'admin_profile.plainPassword.second.placeholder'|trans
+                                }
+                            }) }}
+                            {{ form_errors(profileForm.plainPassword.second) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Render remaining hidden fields including CSRF token #}
+    {{ form_rest(profileForm) }}
+
+    {{ form_end(profileForm) }}
+{% endblock %}

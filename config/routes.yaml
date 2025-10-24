@@ -1,5 +1,10 @@
+# Import all controllers using PHP 8 attributes
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+    resource: ../src/Controller/
     type: attribute
+
+# Optional: manual route definition (only if needed)
+app_admin_profile_edit:
+    path: /admin/profile/edit
+    controller: App\Controller\Admin\AdminProfileController::edit
+    methods: [GET, POST]
