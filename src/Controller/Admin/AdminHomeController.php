@@ -22,6 +22,20 @@ class AdminHomeController extends AbstractController
 
         $totalRevenue = array_sum(array_map(fn($room) => (float)($room->getPricePerNight() ?? 0), $rooms));
 
+        // ----------------------------
+        // Generate booking stats per category
+        // ----------------------------
+        $bookingsStats = [];
+        foreach ($rooms as $room) {
+            $category = $room->getCategory() ?: 'Other';
+            if (!isset($bookingsStats[$category])) {
+                $bookingsStats[$category] = 0;
+            }
+            if (!$room->isAvailable()) {
+                $bookingsStats[$category]++; // count only occupied rooms as "booked"
+            }
+        }
+
         return $this->render('admin/home.html.twig', [
             'page_title' => 'Admin Dashboard',
             'rooms' => $rooms,
@@ -29,6 +43,7 @@ class AdminHomeController extends AbstractController
             'available_rooms' => $availableRooms,
             'occupied_rooms' => $occupiedRooms,
             'total_revenue' => $totalRevenue,
+            'bookingsStats' => $bookingsStats, // safe now
         ]);
     }
 }

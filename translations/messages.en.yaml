@@ -1,7 +1,17 @@
 # translations/messages.en.yaml
+
+# Admin Profile translations
 admin_profile:
     plainPassword:
         first:
             placeholder: "Enter new password (leave blank to keep current)"
         second:
             placeholder: "Confirm new password"
+
+# Other common messages (optional)
+messages:
+    submit: "Submit"
+    cancel: "Cancel"
+    delete: "Delete"
+    edit: "Edit"
+    save: "Save"

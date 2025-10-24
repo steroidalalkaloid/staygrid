@@ -62,9 +62,8 @@ return [
                     .')'
                 .')'
                 .'|/admin/roomlisting/([^/]++)(?'
-                    .'|(*:232)'
-                    .'|/edit(*:245)'
-                    .'|(*:253)'
+                    .'|/edit(*:237)'
+                    .'|(*:245)'
                 .')'
             .')/?$}sDu',
     ],
@@ -77,9 +76,8 @@ return [
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        232 => [[['_route' => 'app_admin_roomlisting_show', '_controller' => 'App\\Controller\\Admin\\RoomListingController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        245 => [[['_route' => 'app_admin_roomlisting_edit', '_controller' => 'App\\Controller\\Admin\\RoomListingController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        253 => [
+        237 => [[['_route' => 'app_admin_roomlisting_edit', '_controller' => 'App\\Controller\\Admin\\RoomListingController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        245 => [
             [['_route' => 'app_admin_roomlisting_delete', '_controller' => 'App\\Controller\\Admin\\RoomListingController::delete'], ['id'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

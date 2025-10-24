@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType; // For image upload
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 
 class RoomListingType extends AbstractType
@@ -51,9 +51,13 @@ class RoomListingType extends AbstractType
                 'label' => 'Room is currently available?',
                 'required' => false,
             ])
+            ->add('isBlocked', CheckboxType::class, [
+                'label' => 'Mark as Unavailable (Admin Block)',
+                'required' => false,
+            ])
             ->add('image', FileType::class, [
                 'label' => 'Room Image',
-                'mapped' => false, // This field is not directly mapped to the entity
+                'mapped' => false, // Not directly mapped to the entity
                 'required' => false,
                 'constraints' => [
                     new File([

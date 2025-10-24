@@ -1,122 +1,115 @@
-{# templates/admin/roomlisting/index.html.twig #}
 {% extends 'admin/base.html.twig' %}
 
 {% set primary_accent = '#facc15' %}
 {% set secondary_dark = '#111827' %}
 
 {% block title %}Room Listings Index{% endblock %}
-
 {% block header_title %}Room Listings{% endblock %}
 
 {% block body %}
-    <div class="max-w-7xl mx-auto">
-        
-        {# Page Header: Title and Create Button #}
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-extrabold text-secondary-dark">Room Listings</h1>
-            <a href="{{ path('app_admin_roomlisting_new') }}" 
-               class="inline-flex items-center rounded-lg border border-transparent bg-primary-accent py-2 px-6 text-sm font-bold text-secondary-dark shadow-md hover:bg-primary-accent/90 transition">
-                <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-                Create New Room
-            </a>
-        </div>
+<div class="max-w-7xl mx-auto">
 
-        {# --- START ROOM CARD GRID --- #}
-        {% if room_listings is not empty %}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                
-                {% for room_listing in room_listings %}
-                    <div class="bg-white shadow-xl rounded-xl overflow-hidden group transition duration-300 hover:shadow-2xl">
-                        
-                        {# Image Section #}
-                        <div class="relative h-48 bg-gray-100">
-                            {% if room_listing.image %}
-                                <img src="{{ asset('uploads/rooms/' ~ room_listing.image) }}" 
-                                     alt="Image of {{ room_listing.category|default('Room') }} #{{ room_listing.number }}" 
-                                     class="w-full h-full object-cover">
-                            {% else %}
-                                {# Placeholder for rooms without images #}
-                                <div class="w-full h-full flex items-center justify-center text-gray-400 border border-dashed border-gray-300">
-                                    No Image Available
-                                </div>
-                            {% endif %}
-                            
-                            {# Status Badge #}
-                            {% if room_listing.isAvailable %}
-                                <span class="absolute top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full bg-green-500 text-white shadow-lg">Available</span>
-                            {% else %}
-                                <span class="absolute top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full bg-red-500 text-white shadow-lg">Occupied</span>
-                            {% endif %}
-                        </div>
-
-                        {# Details Section #}
-                        <div class="p-5 space-y-3">
-                            
-                            {# Title and Room Number #}
-                            <div class="flex justify-between items-start">
-                                <h3 class="text-xl font-bold text-secondary-dark leading-tight">{{ room_listing.category|default('Room') }}</h3>
-                                <p class="text-sm font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded-full border border-gray-200">#{{ room_listing.number }}</p>
-                            </div>
-                            
-                            {# Price and Capacity #}
-                            <div class="text-lg font-extrabold text-primary-accent">
-                                ${{ room_listing.pricePerNight|number_format(2, '.', ',') }} <span class="text-sm font-medium text-gray-600">/ night</span>
-                            </div>
-                            
-                            <p class="text-sm text-gray-500 line-clamp-2" title="{{ room_listing.description|default('No description provided.') }}">
-                                {{ room_listing.description|default('No description provided.') }}
-                            </p>
-                            
-                            <div class="text-sm text-gray-600 pt-1">
-                                Max Guests: <span class="font-semibold">{{ room_listing.capacity }}</span>
-                            </div>
-                        </div>
-
-                        {# Actions Section (Admin Links) #}
-                        <div class="bg-gray-50 p-4 flex justify-between items-center border-t border-gray-100">
-                            
-                            {# Edit Button #}
-                            <a href="{{ path('app_admin_roomlisting_edit', {'id': room_listing.id}) }}" 
-                               class="text-sm font-medium text-secondary-dark hover:text-primary-accent transition duration-150">
-                                Edit Details
-                            </a>
-                            
-                            {# Delete Button (Small Form) #}
-                            <form method="POST" action="{{ path('app_admin_roomlisting_delete', {'id': room_listing.id}) }}" 
-                                  onsubmit="return confirm('Confirm deletion of room #{{ room_listing.number }}?');" 
-                                  class="inline-block">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ room_listing.id) }}">
-                                <button type="submit" 
-                                        class="text-sm font-medium text-red-600 hover:text-red-800 transition duration-150 underline bg-transparent border-none p-0 cursor-pointer">
-                                    Delete
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                {% endfor %}
-
-            </div>
-        {% else %}
-            {# Empty State #}
-            <div class="text-center py-16 bg-white shadow rounded-lg border border-gray-200">
-                <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-1.5-18L18 3m-2.25 0h2.25A2.25 2.25 0 0118 5.25v13.5A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V5.25A2.25 2.25 0 015.25 3h1.5m6-1.5h.75m-6-.75v.75m1.5-1.5h.75m-6-.75v.75m1.5-1.5h.75m1.5-1.5h.75m-1.5 0v.75m-6-.75v.75m1.5-1.5h.75m-6-.75v.75m-1.5-1.5h.75m6 0h.75m1.5 0h.75" />
-                </svg>
-                <h3 class="mt-2 text-sm font-semibold text-gray-900">No rooms listed</h3>
-                <p class="mt-1 text-sm text-gray-500">Get started by creating a new room listing.</p>
-                <div class="mt-6">
-                    <a href="{{ path('app_admin_roomlisting_new') }}" 
-                       class="inline-flex items-center rounded-lg border border-transparent bg-primary-accent py-2 px-6 text-sm font-bold text-secondary-dark shadow-md hover:bg-primary-accent/90 transition">
-                        <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-                        Create New Room
-                    </a>
-                </div>
-            </div>
-        {% endif %}
-        {# --- END ROOM CARD GRID --- #}
+    <div class="flex justify-between items-center mb-8">
+        <a href="{{ path('app_admin_roomlisting_new') }}" 
+           class="inline-flex items-center rounded-lg border border-transparent bg-primary-accent py-2 px-6 text-sm font-bold text-secondary-dark shadow-md hover:bg-primary-accent/90 transition">
+            <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Create New Room
+        </a>
     </div>
+
+    {% if roomData is not empty %}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {% for data in roomData %}
+                {% set room_listing = data.room %}
+                {% set currentBooking = data.currentBooking %}
+                {% set durationDays = data.durationDays %}
+                {% set durationHours = data.durationHours %}
+
+                <div class="bg-white shadow-xl rounded-xl overflow-hidden group transition duration-300 hover:shadow-2xl">
+
+                    <div class="relative h-48 bg-gray-100">
+                        {% if room_listing.image %}
+                            <img src="{{ asset('uploads/rooms/' ~ room_listing.image) }}" 
+                                 alt="Image of {{ room_listing.category|default('Room') }} #{{ room_listing.number }}" 
+                                 class="w-full h-full object-cover">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center text-gray-400 border border-dashed border-gray-300">
+                                No Image Available
+                            </div>
+                        {% endif %}
+
+                        {# Room Status Logic #}
+                        {% if room_listing.isBlocked %}
+                            <span class="absolute top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full bg-yellow-500 text-white shadow-lg">
+                                Unavailable
+                            </span>
+                        {% elseif currentBooking %}
+                            <span class="absolute top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full bg-red-500 text-white shadow-lg">
+                                Occupied
+                            </span>
+                        {% else %}
+                            <span class="absolute top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full bg-green-500 text-white shadow-lg">
+                                Available
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    <div class="p-5 space-y-3">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-xl font-bold text-secondary-dark leading-tight">{{ room_listing.category|default('Room') }}</h3>
+                            <p class="text-sm font-semibold text-gray-500 bg-gray-100 px-2 py-1 rounded-full border border-gray-200">#{{ room_listing.number }}</p>
+                        </div>
+
+                        <div class="text-lg font-extrabold text-primary-accent">
+                            ${{ room_listing.pricePerNight|number_format(2, '.', ',') }} 
+                            <span class="text-sm font-medium text-gray-600">/ night</span>
+                        </div>
+
+                        <p class="text-sm text-gray-500 line-clamp-2" title="{{ room_listing.description|default('No description provided.') }}">
+                            {{ room_listing.description|default('No description provided.') }}
+                        </p>
+
+                        <div class="text-sm text-gray-600 pt-1">
+                            Max Guests: <span class="font-semibold">{{ room_listing.capacity }}</span>
+                        </div>
+
+                        {# Booking Duration Info #}
+                        {% if currentBooking %}
+                            <div class="border-t border-gray-200 pt-3 mt-3 text-sm text-gray-600">
+                                <p><span class="font-semibold">Current Booking:</span> {{ currentBooking.status|capitalize }}</p>
+                                <p><span class="font-semibold">From:</span> {{ currentBooking.startDate|date('M d, Y H:i') }}</p>
+                                <p><span class="font-semibold">To:</span> {{ currentBooking.endDate|date('M d, Y H:i') }}</p>
+                                <p><span class="font-semibold">Duration:</span> {{ durationDays }} days ({{ durationHours }} hours)</p>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="bg-gray-50 p-4 flex justify-between items-center border-t border-gray-100">
+                        <a href="{{ path('app_admin_roomlisting_edit', {'id': room_listing.id}) }}" 
+                           class="text-sm font-medium text-secondary-dark hover:text-primary-accent transition duration-150">
+                            Edit Details
+                        </a>
+
+                        <form method="POST" action="{{ path('app_admin_roomlisting_delete', {'id': room_listing.id}) }}" 
+                              onsubmit="return confirm('Confirm deletion of room #{{ room_listing.number }}?');" 
+                              class="inline-block">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ room_listing.id) }}">
+                            <button type="submit" 
+                                    class="text-sm font-medium text-red-600 hover:text-red-800 transition duration-150 underline bg-transparent border-none p-0 cursor-pointer">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-16 bg-white shadow rounded-lg border border-gray-200">
+            <h3 class="mt-2 text-sm font-semibold text-gray-900">No rooms listed</h3>
+            <p class="mt-1 text-sm text-gray-500">Get started by creating a new room listing.</p>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

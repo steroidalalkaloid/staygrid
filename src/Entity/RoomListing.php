@@ -4,6 +4,8 @@
 namespace App\Entity;
 
 use App\Repository\RoomListingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,8 +39,27 @@ class RoomListing
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    // --- Getters and Setters ---
+    // Rental Duration Fields
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $startDate = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $endDate = null;
+
+    // Admin-blocked room flag
+    #[ORM\Column(type: 'boolean')]
+    private bool $isBlocked = false;
+
+    // One Room can have many Bookings
+    #[ORM\OneToMany(mappedBy: 'room', targetEntity: Booking::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
+    private Collection $bookings;
+
+    public function __construct()
+    {
+        $this->bookings = new ArrayCollection();
+    }
+
+    // ─── BASIC FIELDS ───────────────────────────────────────────────
     public function getId(): ?int
     {
         return $this->id;
@@ -118,6 +139,108 @@ class RoomListing
     public function setImage(?string $image): static
     {
         $this->image = $image;
+        return $this;
+    }
+
+    // ─── RENTAL DURATION ───────────────────────────────────────────
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(?\DateTimeInterface $startDate): static
+    {
+        $this->startDate = $startDate;
+        return $this;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(?\DateTimeInterface $endDate): static
+    {
+        $this->endDate = $endDate;
+        return $this;
+    }
+
+    // ─── ADMIN-BLOCKED ROOM ────────────────────────────────────────
+    public function isBlocked(): bool
+    {
+        return $this->isBlocked;
+    }
+
+    public function setIsBlocked(bool $isBlocked): static
+    {
+        $this->isBlocked = $isBlocked;
+        return $this;
+    }
+
+    // ─── HELPER FUNCTIONS ──────────────────────────────────────────
+    public function getDurationDays(): ?int
+    {
+        if ($this->startDate && $this->endDate) {
+            return $this->startDate->diff($this->endDate)->days;
+        }
+        return null;
+    }
+
+    // Check if the room is occupied based on current bookings
+    public function isOccupied(): bool
+    {
+        $today = new \DateTime();
+
+        foreach ($this->bookings as $booking) {
+            if ($booking->getStartDate() <= $today && $booking->getEndDate() >= $today) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // Get room status for dashboard: Blocked / Occupied / Available
+    public function getStatus(): string
+    {
+        if ($this->isBlocked) {
+            return 'Blocked';
+        }
+
+        if ($this->isOccupied()) {
+            return 'Occupied';
+        }
+
+        return 'Available';
+    }
+
+    // ─── RELATIONSHIP WITH BOOKINGS ────────────────────────────────
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): static
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings[] = $booking;
+            $booking->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): static
+    {
+        if ($this->bookings->removeElement($booking)) {
+            if ($booking->getRoom() === $this) {
+                $booking->setRoom(null);
+            }
+        }
+
         return $this;
     }
 }

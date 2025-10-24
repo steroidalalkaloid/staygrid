@@ -59,7 +59,10 @@ class __TwigTemplate_a305ca6d1dd3a7222af4f5e994aa363d extends Template
         // line 6
         yield from $this->unwrap()->yieldBlock('title', $context, $blocks);
         yield "</title>
-    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap\" rel=\"stylesheet\">
+    <link rel=\"icon\" type=\"image/png\" href=\"";
+        // line 7
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("icons/staygrid16x16.png"), "html", null, true);
+        yield "\"/>
     <script src=\"https://cdn.tailwindcss.com\"></script>
     <script>
         // Customizing Tailwind to use the Inter font and your new color palette
@@ -397,7 +400,7 @@ class __TwigTemplate_a305ca6d1dd3a7222af4f5e994aa363d extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  368 => 136,  366 => 135,  353 => 134,  330 => 118,  308 => 46,  286 => 45,  263 => 6,  248 => 138,  246 => 134,  243 => 133,  230 => 121,  225 => 118,  222 => 117,  218 => 114,  208 => 106,  204 => 105,  192 => 96,  189 => 95,  177 => 87,  172 => 86,  160 => 78,  155 => 77,  142 => 68,  137 => 67,  125 => 59,  120 => 58,  112 => 51,  107 => 47,  104 => 46,  101 => 45,  60 => 6,  53 => 1,);
+        return array (  371 => 136,  369 => 135,  356 => 134,  333 => 118,  311 => 46,  289 => 45,  266 => 6,  251 => 138,  249 => 134,  246 => 133,  233 => 121,  228 => 118,  225 => 117,  221 => 114,  211 => 106,  207 => 105,  195 => 96,  192 => 95,  180 => 87,  175 => 86,  163 => 78,  158 => 77,  145 => 68,  140 => 67,  128 => 59,  123 => 58,  115 => 51,  110 => 47,  107 => 46,  104 => 45,  64 => 7,  60 => 6,  53 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -408,7 +411,7 @@ class __TwigTemplate_a305ca6d1dd3a7222af4f5e994aa363d extends Template
     <meta charset=\"UTF-8\">
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
     <title>{% block title %}StayGrid Admin{% endblock %}</title>
-    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap\" rel=\"stylesheet\">
+    <link rel=\"icon\" type=\"image/png\" href=\"{{ asset('icons/staygrid16x16.png') }}\"/>
     <script src=\"https://cdn.tailwindcss.com\"></script>
     <script>
         // Customizing Tailwind to use the Inter font and your new color palette

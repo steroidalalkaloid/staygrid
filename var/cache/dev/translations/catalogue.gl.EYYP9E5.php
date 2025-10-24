@@ -413,6 +413,11 @@ $catalogueEn = new MessageCatalogue('en', array (
   array (
     'admin_profile.plainPassword.first.placeholder' => 'Enter new password (leave blank to keep current)',
     'admin_profile.plainPassword.second.placeholder' => 'Confirm new password',
+    'messages.submit' => 'Submit',
+    'messages.cancel' => 'Cancel',
+    'messages.delete' => 'Delete',
+    'messages.edit' => 'Edit',
+    'messages.save' => 'Save',
   ),
 ));
 $catalogue->addFallbackCatalogue($catalogueEn);

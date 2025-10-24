@@ -75,17 +75,19 @@
         </div>
     </div>
 
-    {# Availability #}
+    {# 🔹 Admin Block Toggle #}
     <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start pt-3 border-t border-gray-100">
-        <label class="block text-sm font-medium text-secondary-dark sm:mt-px sm:pt-2">Availability</label>
+        <label class="block text-sm font-medium text-secondary-dark sm:mt-px sm:pt-2">
+            Mark as Unavailable (Admin Block)
+        </label>
         <div class="mt-1 sm:col-span-2 sm:mt-0">
             <div class="flex items-center">
-                {{ form_widget(form.isAvailable, {'attr': {'class': 'h-5 w-5 rounded border-gray-300 text-primary-accent focus:ring-primary-accent'}}) }}
-                <label for="{{ form.isAvailable.vars.id }}" class="ml-2 block text-sm text-secondary-dark font-medium">
-                    {{ form.isAvailable.vars.label }}
+                {{ form_widget(form.isBlocked, {'attr': {'class': 'h-5 w-5 rounded border-gray-300 text-primary-accent focus:ring-primary-accent'}}) }}
+                <label for="{{ form.isBlocked.vars.id }}" class="ml-2 block text-sm text-secondary-dark font-medium">
+                    {{ form.isBlocked.vars.label }}
                 </label>
             </div>
-            {{ form_errors(form.isAvailable) }}
+            {{ form_errors(form.isBlocked) }}
         </div>
     </div>
 
@@ -119,4 +121,3 @@
 </div>
 
 {{ form_end(form) }}
-

@@ -1,23 +1,20 @@
-# config/packages/security.yaml
+
 security:
-    # Role hierarchy
+
     role_hierarchy:
         ROLE_ADMIN: [ROLE_CLIENT]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
-    # User providers
     providers:
         app_user_provider:
             entity:
                 class: App\Entity\LogInUsers
                 property: email
 
-    # Password hashers
     password_hashers:
         App\Entity\LogInUsers:
             algorithm: auto
 
-    # Firewalls
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt))
@@ -34,7 +31,7 @@ security:
                 csrf_token_id: admin_authenticate
             logout:
                 path: app_admin_logout
-                target: app_admin_login  # Redirect to admin login after logout
+                target: app_admin_login 
 
         main:
             lazy: true
@@ -46,9 +43,8 @@ security:
                 csrf_token_id: authenticate
             logout:
                 path: app_logout
-                target: app_landing  # Redirect to landing page after client logout
+                target: app_landing  
 
-    # Access control rules
     access_control:
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }

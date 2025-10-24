@@ -16,14 +16,20 @@ class AdminProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            // Email field mapped to the entity
             ->add('email', EmailType::class, [
                 'label' => 'Login Email',
                 'required' => true,
+                'attr' => [
+                    'placeholder' => 'Enter your email',
+                ],
             ])
+            
+            // Password fields NOT mapped to entity directly
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'mapped' => false, // password is not automatically mapped to entity
-                'required' => false, // allow leaving it blank
+                'mapped' => false, // password is handled manually
+                'required' => false, // leave blank if not changing
                 'first_options' => [
                     'label' => 'New Password',
                     'attr' => [
@@ -44,9 +50,6 @@ class AdminProfileType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-                'options' => [
-                    'empty_data' => '', // ensures empty input doesn't break validation
-                ],
             ]);
     }
 
@@ -54,7 +57,6 @@ class AdminProfileType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => LogInUsers::class,
-            'attr' => ['novalidate' => 'novalidate'], 
         ]);
     }
 }
